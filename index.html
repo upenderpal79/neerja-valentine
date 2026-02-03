@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neerja ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle, #ff4d6d, #ff8fab);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Comic Sans MS', cursive;
+        overflow: hidden;
+    }
+
+    .container {
+        background: white;
+        padding: 40px;
+        border-radius: 30px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        z-index: 10;
+        max-width: 350px;
+    }
+
+    h1 {
+        color: #ff2e63;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #555;
+        font-size: 18px;
+    }
+
+    button {
+        padding: 12px 28px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        margin: 12px;
+    }
+
+    #yes {
+        background: #ff2e63;
+        color: white;
+        box-shadow: 0 6px 15px rgba(255,46,99,0.5);
+    }
+
+    #no {
+        background: #eee;
+        position: absolute;
+    }
+
+    .heart {
+        position: absolute;
+        font-size: 22px;
+        animation: floatUp 6s linear infinite;
+        opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(100vh) scale(0.5);
+            opacity: 0;
+        }
+        50% { opacity: 1; }
+        100% {
+            transform: translateY(-10vh) scale(1.2);
+            opacity: 0;
+        }
+    }
+
+    .confetti {
+        position: absolute;
+        width: 8px;
+        height: 14px;
+        animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-10vh) rotate(0deg); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+    }
+</style>
+</head>
+
+<body onclick="playMusic()">
+
+<audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2e9f4c07d7.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="card">
+    <h1>Neerja ❤️</h1>
+    <p>
+        Roses are red 🌹<br>
+        Violets are blue 💕<br>
+        My heart already chose you 😌
+    </p>
+    <h2>Will you be my Valentine? 💖</h2>
+
+    <button id="yes" onclick="yesClicked()">Yes 😍</button>
+    <button id="no" onmouseover="moveNo()" onclick="noClicked()">No 🙈</button>
+</div>
+
+<script>
+    const music = document.getElementById("music");
+    let noCount = 0;
+
+    function playMusic() {
+        music.play();
+    }
+
+    function moveNo() {
+        const noBtn = document.getElementById("no");
+        noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+        noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
+    }
+
+    function noClicked() {
+        noCount++;
+        const messages = [
+            "😢 Are you sure?",
+            "🥺 Think again… my heart is fragile",
+            "💔 That button is broken",
+            "😏 You know you want to say YES",
+            "❤️ Neerja + Me = Perfect",
+            "😂 Nice try, destiny says NO to NO"
+        ];
+        alert(messages[Math.min(noCount - 1, messages.length - 1)]);
+    }
+
+    function yesClicked() {
+        document.body.innerHTML = `
+        <div style="
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+            background:radial-gradient(circle,#ff4d6d,#ff8fab);
+            color:white;
+            font-family:'Comic Sans MS';
+            text-align:center;
+        ">
+            <h1>🎉 SHE SAID YES!!! 🎉</h1>
+            <h2>Neerja, you just stole my heart forever ❤️</h2>
+            <p>Warning ⚠️: Unlimited love, care & bad jokes incoming 😍</p>
+        </div>
+        `;
+        startConfetti();
+        startHearts();
+    }
+
+    function startHearts() {
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.fontSize = (Math.random() * 25 + 15) + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }, 200);
+    }
+
+    function startConfetti() {
+        setInterval(() => {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * window.innerWidth + "px";
+            confetti.style.background = `hsl(${Math.random()*360},100%,50%)`;
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 3000);
+        }, 100);
+    }
+
+    // background hearts before yes
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }, 400);
+</script>
+
+</body>
+</html>
